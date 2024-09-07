@@ -34,8 +34,8 @@ def report(text_file):
         if key.isalpha():
             list_of_dict.append({key: num_of_chars[key]})
    
-    sorted_list = sorted(list_of_dict, key=lambda x: list(x.keys())[0])
-
+    sorted_list = sorted(list_of_dict, key=lambda x: list(x.values())[0], reverse=True)
+    #print(list_of_dict.sort(reverse=True, key=lambda x: list(x.keys())[0]))
         
     
     print(sorted_list)
