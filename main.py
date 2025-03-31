@@ -1,12 +1,14 @@
+from stats import get_num_words
+import sys
+
 def main():
-    with open("books/frankenstein.txt") as f:
-        file_contents = f.read()
-
-    report(file_contents)
-
-def number_of_words(input_text):
-    words = input_text.split()
-    return len(words)
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    else:
+        with open(sys.argv[1]) as f:
+            file_contents = f.read()
+        report(file_contents)
 
 def number_of_characters(input_string):
     number_of_char = {}
@@ -20,7 +22,7 @@ def number_of_characters(input_string):
     return number_of_char
 
 def report(text_file):
-    word_count = number_of_words(text_file)
+    word_count = get_num_words(text_file)
     num_of_chars = number_of_characters(text_file)
     list_of_dict = []
 
@@ -31,13 +33,13 @@ def report(text_file):
     sorted_list = sorted(list_of_dict, key=lambda x: list(x.values())[0], reverse=True)
     
     #Print report
-    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"--- Begin report of {sys.argv[1]} ---")
     print(f"{word_count} words found in the document")
     print()
     
     for item in sorted_list:
         for key in item.keys():
-            print(f"The '{key}' character was found {item[key]} times")
+            print(f"- '{key}: {item[key]}'")
     
     print("--- End report ---")
     
